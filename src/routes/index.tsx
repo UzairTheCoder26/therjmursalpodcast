@@ -40,7 +40,7 @@ function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative min-h-[100vh] overflow-hidden flex items-center">
+      <section className="relative min-h-[100vh] w-full overflow-hidden flex items-center">
         {/* Soundwave background layer */}
         <div className="absolute inset-0 opacity-[0.18] pointer-events-none">
           <SoundWave count={120} />
@@ -50,8 +50,8 @@ function HomePage() {
         <div className="absolute top-1/4 -left-32 h-96 w-96 rounded-full bg-neon-red/30 blur-[120px]" />
         <div className="absolute bottom-1/4 -right-32 h-96 w-96 rounded-full bg-gold/30 blur-[120px]" />
 
-        <div className="max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-12 gap-8 items-center relative z-10 py-20">
-          <div className="lg:col-span-7 animate-fade-up">
+        <div className="w-full max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-12 gap-8 items-center relative z-10 py-20 overflow-x-hidden">
+          <div className="lg:col-span-7 min-w-0 animate-fade-up">
             <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/5 px-4 py-1.5 text-xs uppercase tracking-[0.3em] text-gold mb-6">
               <span className="h-1.5 w-1.5 rounded-full bg-neon-red animate-pulse" />
               Studio M Presents
@@ -65,17 +65,17 @@ function HomePage() {
               millions, conversations that hit different.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex w-full flex-wrap gap-3">
               <Link
                 to="/services"
-                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold-glow px-7 py-3.5 text-sm font-bold uppercase tracking-widest text-ink hover:shadow-gold transition-all glow-pulse"
+                className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold-glow px-7 py-3.5 text-sm font-bold uppercase tracking-[0.12em] sm:tracking-widest text-ink hover:shadow-gold transition-all glow-pulse"
               >
                 Book A Service
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 to="/podcast"
-                className="inline-flex items-center gap-2 rounded-full border-2 border-neon-red px-7 py-3.5 text-sm font-bold uppercase tracking-widest text-foreground hover:bg-neon-red/10 hover:shadow-red transition-all"
+                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border-2 border-neon-red px-7 py-3.5 text-sm font-bold uppercase tracking-[0.12em] sm:tracking-widest text-foreground hover:bg-neon-red/10 hover:shadow-red transition-all"
               >
                 <Mic className="h-4 w-4" />
                 Get Featured
@@ -92,7 +92,7 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="lg:col-span-5 relative animate-fade-up" style={{ animationDelay: "200ms" }}>
+          <div className="lg:col-span-5 relative min-w-0 w-full max-w-[22rem] sm:max-w-md lg:max-w-none mx-auto animate-fade-up" style={{ animationDelay: "200ms" }}>
             <div className="relative aspect-[3/4] rounded-3xl overflow-hidden border border-gold/30 shadow-gold">
               <img
                 src={currentHeroImg}
@@ -108,7 +108,7 @@ function HomePage() {
                 </div>
               </div>
             </div>
-            <div className="absolute -top-4 -right-4 rounded-2xl bg-neon-red px-4 py-2 font-display text-xl tracking-widest text-foreground rotate-3 shadow-red">
+            <div className="hidden sm:block absolute -top-4 -right-4 rounded-2xl bg-neon-red px-4 py-2 font-display text-xl tracking-widest text-foreground rotate-3 shadow-red">
               ON AIR
             </div>
           </div>
