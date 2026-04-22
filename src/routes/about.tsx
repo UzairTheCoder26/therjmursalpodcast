@@ -34,7 +34,7 @@ function AboutPage() {
       .eq("key", "about")
       .maybeSingle()
       .then(({ data }) => {
-        if (data) setData(data.value as AboutData);
+        if (data) setData(data.value as unknown as AboutData);
       });
   }, []);
 
