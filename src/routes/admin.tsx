@@ -24,7 +24,7 @@ const navItems = [
   { to: "/admin/about", label: "Edit About", Icon: User },
   { to: "/admin/terms", label: "Edit Terms", Icon: FileText },
   { to: "/admin/settings", label: "Settings", Icon: Settings },
-] as const;
+] as { to: string; label: string; Icon: typeof LayoutDashboard; exact?: boolean }[];
 
 function AdminLayout() {
   const navigate = useNavigate();
