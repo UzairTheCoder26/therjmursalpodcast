@@ -24,7 +24,8 @@ function SettingsPage() {
 
   const save = async () => {
     setSaving(true);
-    const { error } = await supabase.from("site_content").update({ value: s as unknown as Record<string, unknown>, updated_at: new Date().toISOString() }).eq("key", "settings");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await supabase.from("site_content").update({ value: s as any, updated_at: new Date().toISOString() }).eq("key", "settings");
     setSaving(false);
     if (error) toast.error(error.message); else toast.success("Saved");
   };

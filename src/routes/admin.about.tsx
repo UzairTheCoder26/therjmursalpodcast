@@ -30,7 +30,8 @@ function EditAbout() {
 
   const save = async () => {
     setSaving(true);
-    const { error } = await supabase.from("site_content").update({ value: data as unknown as Record<string, unknown>, updated_at: new Date().toISOString() }).eq("key", "about");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await supabase.from("site_content").update({ value: data as any, updated_at: new Date().toISOString() }).eq("key", "about");
     setSaving(false);
     if (error) toast.error(error.message); else toast.success("Saved!");
   };

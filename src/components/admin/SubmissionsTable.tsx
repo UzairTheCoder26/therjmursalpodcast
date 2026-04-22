@@ -40,7 +40,8 @@ export function SubmissionsTable({
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [filter]);
 
   const updateRow = async (id: string, patch: Record<string, unknown>) => {
-    const { error } = await supabase.from(table).update(patch).eq("id", id);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase.from(table) as any).update(patch).eq("id", id);
     if (error) toast.error(error.message);
     else { toast.success("Updated"); load(); }
   };
