@@ -1,4 +1,7 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouterState } from "@tanstack/react-router";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
 
@@ -6,17 +9,17 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <h1 className="font-display text-9xl text-gold-gradient">404</h1>
+        <h2 className="mt-4 font-display text-3xl tracking-widest">SIGNAL LOST</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          This frequency doesn't exist on our airwaves.
         </p>
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-gold to-gold-glow px-6 py-3 text-sm font-bold uppercase tracking-widest text-ink hover:shadow-gold transition-all"
           >
-            Go home
+            Back to Studio
           </Link>
         </div>
       </div>
@@ -29,21 +32,15 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "RJMursal — Voice of the Masses | FM Tadka | Podcast Host" },
+      { name: "description", content: "Official site of RJ Mursal — Radio Jockey at FM Tadka and Podcast Host. Book brand ads, podcast features, sponsorships and more." },
+      { name: "author", content: "RJMursal" },
+      { property: "og:title", content: "RJMursal — Voice of the Masses" },
+      { property: "og:description", content: "FM Tadka RJ. Podcast Host. Brand Storyteller." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-    ],
+    links: [{ rel: "stylesheet", href: appCss }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -52,7 +49,7 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>
@@ -65,5 +62,26 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  return <Outlet />;
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  const isAdmin = path.startsWith("/admin");
+
+  if (isAdmin) {
+    return (
+      <>
+        <Outlet />
+        <Toaster theme="dark" position="top-right" richColors />
+      </>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <SiteHeader />
+      <main className="flex-1 pt-16">
+        <Outlet />
+      </main>
+      <SiteFooter />
+      <Toaster theme="dark" position="top-right" richColors />
+    </div>
+  );
 }
