@@ -4,7 +4,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
-interface Settings { site_title: string; tagline: string; contact_email: string }
+interface Settings {
+  site_title: string;
+  tagline: string;
+  contact_email: string;
+  contact_location?: string;
+}
 
 export const Route = createFileRoute("/admin/settings")({
   component: SettingsPage,
@@ -44,6 +49,7 @@ function SettingsPage() {
           <Field label="Site Title" value={s.site_title} onChange={(v) => setS({ ...s, site_title: v })}/>
           <Field label="Tagline" value={s.tagline} onChange={(v) => setS({ ...s, tagline: v })}/>
           <Field label="Contact Email" value={s.contact_email} onChange={(v) => setS({ ...s, contact_email: v })}/>
+          <Field label="Contact Location" value={s.contact_location || ""} onChange={(v) => setS({ ...s, contact_location: v })}/>
           <button onClick={save} disabled={saving} className="rounded-full bg-gradient-to-r from-gold to-gold-glow px-8 py-3 text-sm font-bold uppercase tracking-widest text-ink hover:shadow-gold disabled:opacity-60 inline-flex items-center gap-2">
             {saving && <Loader2 className="h-4 w-4 animate-spin"/>} Save Settings
           </button>

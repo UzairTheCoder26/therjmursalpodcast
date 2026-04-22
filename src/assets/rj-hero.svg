@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-label="RJ Mursal hero image placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0b10"/>
+      <stop offset="0.55" stop-color="#1a0f19"/>
+      <stop offset="1" stop-color="#2a1b0f"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f5d77a"/>
+      <stop offset="0.5" stop-color="#f7b733"/>
+      <stop offset="1" stop-color="#ff6b6b"/>
+    </linearGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.9 0" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="1600" fill="url(#bg)"/>
+
+  <!-- subtle soundwave lines -->
+  <g opacity="0.18">
+    <path d="M0 1030 C 120 980, 240 980, 360 1030 S 600 1080, 720 1030 960 980, 1200 1030" fill="none" stroke="#f5d77a" stroke-width="6"/>
+    <path d="M0 1100 C 160 1045, 320 1045, 480 1100 S 800 1155, 960 1100 1120 1045, 1200 1100" fill="none" stroke="#ff6b6b" stroke-width="4"/>
+    <path d="M0 1170 C 140 1130, 280 1130, 420 1170 S 700 1210, 840 1170 1060 1130, 1200 1170" fill="none" stroke="#f7b733" stroke-width="5"/>
+  </g>
+
+  <!-- glow orbs -->
+  <circle cx="190" cy="420" r="210" fill="#ff3b3b" opacity="0.18" filter="url(#softGlow)"/>
+  <circle cx="1030" cy="980" r="260" fill="#f7b733" opacity="0.16" filter="url(#softGlow)"/>
+
+  <!-- hero card -->
+  <g transform="translate(150 220)">
+    <rect x="0" y="0" width="900" height="1160" rx="54" fill="rgba(255,255,255,0.03)" stroke="rgba(245,215,122,0.35)" stroke-width="3"/>
+    <rect x="34" y="34" width="832" height="1092" rx="44" fill="rgba(0,0,0,0.35)" stroke="rgba(245,215,122,0.22)" stroke-width="2"/>
+
+    <g transform="translate(70 130)">
+      <text x="0" y="0" fill="#ffffff" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="22" letter-spacing="8" opacity="0.75">
+        HERO IMAGE
+      </text>
+      <text x="0" y="80" fill="url(#gold)" font-family="ui-serif, Georgia, serif" font-size="120" letter-spacing="2">
+        RJ MURSAL
+      </text>
+      <text x="0" y="150" fill="#d6d6d6" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="30" opacity="0.85">
+        Replace this file with your real photo anytime
+      </text>
+      <text x="0" y="205" fill="#a8a8a8" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="22" opacity="0.8">
+        Path: src/assets/rj-hero.svg
+      </text>
+
+      <g transform="translate(0 340)" opacity="0.85">
+        <rect x="0" y="0" width="760" height="520" rx="38" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+        <g transform="translate(60 95)">
+          <circle cx="80" cy="80" r="80" fill="rgba(255,255,255,0.06)" stroke="rgba(245,215,122,0.35)"/>
+          <path d="M80 40 v80" stroke="url(#gold)" stroke-width="10" stroke-linecap="round"/>
+          <path d="M50 70 h60" stroke="url(#gold)" stroke-width="10" stroke-linecap="round"/>
+          <text x="190" y="65" fill="#ffffff" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="34">
+            Studio-ready placeholder
+          </text>
+          <text x="190" y="115" fill="#cfcfcf" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="22" opacity="0.85">
+            Drop in your own image later.
+          </text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

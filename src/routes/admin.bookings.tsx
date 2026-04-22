@@ -8,7 +8,7 @@ export const Route = createFileRoute("/admin/bookings")({
       title="SERVICE BOOKINGS"
       description="All service inquiries from the public site."
       filterKey="service_type"
-      filterOptions={["Radio Ad", "Brand Ads Shoot", "Digital Marketing", "Brand Shoot"]}
+      filterOptions={["Podcast Promotion", "Brand Ads Shoot", "Digital Marketing", "Brand Shoot"]}
       statusOptions={["new", "contacted", "closed"]}
       exportable
       columns={[

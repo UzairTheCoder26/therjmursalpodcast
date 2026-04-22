@@ -1,22 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import heroImg from "@/assets/rj-hero.jpg";
+import heroImg from "@/assets/rj-hero.svg";
+import { useAboutContent } from "@/hooks/useSiteContent";
 import { Instagram, Youtube, Music2, Linkedin } from "lucide-react";
-
-interface AboutData {
-  title: string;
-  bio: string;
-  stats: { label: string; value: string }[];
-  socials: { instagram?: string; youtube?: string; spotify?: string; linkedin?: string };
-  profile_image?: string;
-}
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About RJMursal — From FM Tadka to India's airwaves" },
-      { name: "description", content: "The story behind RJ Mursal — from FM Tadka to one of India's most listened-to podcasts." },
+      { title: "About RJMursal — From Studio M to India's airwaves" },
+      { name: "description", content: "The story behind RJ Mursal — from Studio M to one of India's most listened-to podcasts." },
       { property: "og:title", content: "About RJMursal" },
       { property: "og:description", content: "The story behind the voice." },
     ],
@@ -25,18 +16,7 @@ export const Route = createFileRoute("/about")({
 });
 
 function AboutPage() {
-  const [data, setData] = useState<AboutData | null>(null);
-
-  useEffect(() => {
-    supabase
-      .from("site_content")
-      .select("value")
-      .eq("key", "about")
-      .maybeSingle()
-      .then(({ data }) => {
-        if (data) setData(data.value as unknown as AboutData);
-      });
-  }, []);
+  const data = useAboutContent();
 
   const img = data?.profile_image || heroImg;
   const socials = data?.socials || {};

@@ -5,10 +5,6 @@ import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { Loader2, Mic, Lock, ShieldAlert } from "lucide-react";
 import { toast } from "sonner";
 
-const LOCK_KEY = "rj_admin_lock";
-const ATTEMPTS_KEY = "rj_admin_attempts";
-const LOCK_MS = 15 * 60 * 1000; // 15 min
-
 export const Route = createFileRoute("/admin/login")({
   head: () => ({ meta: [{ title: "Admin Login — RJMursal" }, { name: "robots", content: "noindex" }] }),
   component: LoginPage,
@@ -21,12 +17,6 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [lockedUntil, setLockedUntil] = useState<number>(0);
-
-  useEffect(() => {
-    const lock = Number(localStorage.getItem(LOCK_KEY) || 0);
-    if (lock > Date.now()) setLockedUntil(lock);
-  }, []);
 
   useEffect(() => {
     if (!authLoading && session && isAdmin) {
@@ -36,10 +26,6 @@ function LoginPage() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (lockedUntil > Date.now()) {
-      toast.error("Too many attempts. Try again later.");
-      return;
-    }
     setSubmitting(true);
 
     if (mode === "signup") {
@@ -59,19 +45,8 @@ function LoginPage() {
     setSubmitting(false);
 
     if (error) {
-      const attempts = Number(localStorage.getItem(ATTEMPTS_KEY) || 0) + 1;
-      localStorage.setItem(ATTEMPTS_KEY, String(attempts));
-      if (attempts >= 5) {
-        const until = Date.now() + LOCK_MS;
-        localStorage.setItem(LOCK_KEY, String(until));
-        setLockedUntil(until);
-        toast.error("Locked for 15 minutes after 5 failed attempts.");
-      } else {
-        toast.error(`${error.message} (${5 - attempts} left)`);
-      }
+      toast.error(error.message);
     } else {
-      localStorage.removeItem(ATTEMPTS_KEY);
-      localStorage.removeItem(LOCK_KEY);
       toast.success("Signed in.");
     }
   };
@@ -104,8 +79,6 @@ function LoginPage() {
     );
   }
 
-  const locked = lockedUntil > Date.now();
-
   return (
     <div className="min-h-screen flex items-center justify-center px-5">
       <div className="w-full max-w-md">
@@ -135,7 +108,6 @@ function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                disabled={locked}
                 className="w-full rounded-xl bg-input border border-border px-4 py-3 focus:border-gold focus:outline-none"
               />
             </div>
@@ -147,12 +119,11 @@ function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                disabled={locked}
                 className="w-full rounded-xl bg-input border border-border px-4 py-3 focus:border-gold focus:outline-none"
               />
             </div>
             <button
-              disabled={submitting || locked}
+              disabled={submitting}
               className="w-full rounded-full bg-gradient-to-r from-gold to-gold-glow py-3 text-sm font-bold uppercase tracking-widest text-ink hover:shadow-gold disabled:opacity-60 flex items-center justify-center gap-2"
             >
               {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
@@ -166,16 +137,10 @@ function LoginPage() {
           >
             {mode === "signin" ? "First time? Create the admin account" : "Already have an account? Sign in"}
           </button>
-
-          {locked && (
-            <p className="mt-4 text-center text-xs text-neon-red">
-              Locked. Try again in {Math.ceil((lockedUntil - Date.now()) / 60000)} min.
-            </p>
-          )}
         </div>
 
         <p className="mt-6 text-center text-xs text-muted-foreground">
-          Only <span className="text-gold">mursalaltaf17@gmail.com</span> is granted admin access.
+          Admin access is controlled by Supabase roles.
         </p>
       </div>
     </div>

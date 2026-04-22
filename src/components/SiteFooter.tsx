@@ -1,7 +1,14 @@
 import { Link } from "@tanstack/react-router";
+import { useAboutContent, useSiteSettings } from "@/hooks/useSiteContent";
 import { Instagram, Youtube, Linkedin, Music2, Mic } from "lucide-react";
 
 export function SiteFooter() {
+  const aboutData = useAboutContent();
+  const settings = useSiteSettings();
+  const socials = aboutData?.socials || {};
+  const contactEmail = settings?.contact_email || "mursalaltaf17@gmail.com";
+  const contactLocation = settings?.contact_location || "Srinagar Kashmir";
+
   return (
     <footer className="relative border-t border-border/60 bg-ink-2 mt-20">
       <div className="max-w-7xl mx-auto px-5 lg:px-8 py-14 grid gap-10 md:grid-cols-4">
@@ -15,16 +22,18 @@ export function SiteFooter() {
             </span>
           </Link>
           <p className="mt-4 text-muted-foreground max-w-md">
-            Voice of the Masses. From FM Tadka studios to your favourite
+            Voice of the Masses. From Studio M studios to your favourite
             streaming app — stories that hit different.
           </p>
           <div className="flex gap-3 mt-6">
             {[
-              { Icon: Instagram, href: "https://instagram.com/rjmursal" },
-              { Icon: Youtube, href: "https://youtube.com/@rjmursal" },
-              { Icon: Music2, href: "https://open.spotify.com" },
-              { Icon: Linkedin, href: "https://linkedin.com" },
-            ].map(({ Icon, href }) => (
+              { Icon: Instagram, href: socials.instagram },
+              { Icon: Youtube, href: socials.youtube },
+              { Icon: Music2, href: socials.spotify },
+              { Icon: Linkedin, href: socials.linkedin },
+            ]
+              .filter((item) => item.href)
+              .map(({ Icon, href }) => (
               <a
                 key={href}
                 href={href}
@@ -56,18 +65,18 @@ export function SiteFooter() {
             Get In Touch
           </h4>
           <a
-            href="mailto:hello@rjmursal.com"
+            href={`mailto:${contactEmail}`}
             className="text-muted-foreground hover:text-gold text-sm"
           >
-            hello@rjmursal.com
+            {contactEmail}
           </a>
           <p className="text-muted-foreground text-sm mt-3">
-            Mumbai · Available Worldwide
+            {contactLocation}
           </p>
         </div>
       </div>
       <div className="border-t border-border/60 py-6 text-center text-xs text-muted-foreground tracking-wider">
-        © 2025 RJMURSAL · FM TADKA · ALL RIGHTS RESERVED
+        © 2025 RJMURSAL · STUDIO M · ALL RIGHTS RESERVED
       </div>
     </footer>
   );

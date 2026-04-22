@@ -7,9 +7,9 @@ import { toast } from "sonner";
 const services = [
   {
     Icon: Radio,
-    key: "Radio Ad",
-    title: "Radio & Podcast Ads",
-    desc: "Voice ads, jingles and sponsored mentions tailor-made for your brand.",
+    key: "Podcast Promotion",
+    title: "Podcast Promotions",
+    desc: "Sponsored mentions, brand integrations and podcast collaborations tailored to your brand.",
   },
   {
     Icon: Camera,
@@ -34,8 +34,8 @@ const services = [
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Radio Ads, Brand Shoots & Digital | RJMursal" },
-      { name: "description", content: "Book voice ads, brand shoots, digital marketing and reels with RJ Mursal." },
+      { title: "Services — Podcast Promotions, Brand Shoots & Digital | RJMursal" },
+      { name: "description", content: "Book podcast promotions, brand shoots, digital marketing and reels with RJ Mursal." },
       { property: "og:title", content: "RJMursal Services" },
       { property: "og:description", content: "Premium voice, video and digital services for brands." },
     ],

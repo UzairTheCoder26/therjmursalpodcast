@@ -23,26 +23,6 @@ AS $$
   )
 $$;
 
--- Auto-grant admin to mursalaltaf17@gmail.com on signup
-CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS TRIGGER
-LANGUAGE plpgsql
-SECURITY DEFINER
-SET search_path = public
-AS $$
-BEGIN
-  IF NEW.email = 'mursalaltaf17@gmail.com' THEN
-    INSERT INTO public.user_roles (user_id, role) VALUES (NEW.id, 'admin')
-    ON CONFLICT DO NOTHING;
-  END IF;
-  RETURN NEW;
-END;
-$$;
-
-CREATE TRIGGER on_auth_user_created
-  AFTER INSERT ON auth.users
-  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
-
 CREATE POLICY "Users can view own roles" ON public.user_roles FOR SELECT
   USING (auth.uid() = user_id);
 CREATE POLICY "Admins can view all roles" ON public.user_roles FOR SELECT
@@ -153,9 +133,9 @@ CREATE POLICY "Admins manage content" ON public.site_content FOR ALL
 
 -- Seed default content
 INSERT INTO public.site_content (key, value) VALUES
-('about', '{"title":"The Voice Behind The Mic","bio":"From the bustling streets of India to the airwaves of FM Tadka, RJ Mursal has spent years crafting stories that move millions. As a Radio Jockey and podcast host, he brings raw, unfiltered conversations to life — interviewing changemakers, entertainers, and everyday heroes. His podcast has become a cultural pulse, blending humor, depth, and authenticity. Whether on radio or behind the mic of his studio, RJ Mursal is the voice that connects, inspires, and entertains.","stats":[{"label":"Years Experience","value":"5+"},{"label":"Podcast Episodes","value":"100+"},{"label":"Brand Collaborations","value":"50+"},{"label":"Listeners Monthly","value":"2M+"}],"socials":{"instagram":"https://instagram.com/rjmursal","youtube":"https://youtube.com/@rjmursal","spotify":"https://open.spotify.com/show/rjmursal","linkedin":"https://linkedin.com/in/rjmursal"},"profile_image":""}'),
+('about', '{"title":"The Voice Behind The Mic","bio":"From the bustling streets of India to the airwaves of Studio M, RJ Mursal has spent years crafting stories that move millions. As a podcast host and storyteller, he brings raw, unfiltered conversations to life — interviewing changemakers, entertainers, and everyday heroes. His podcast has become a cultural pulse, blending humor, depth, and authenticity. Whether behind the mic or building branded stories in the studio, RJ Mursal is the voice that connects, inspires, and entertains.","stats":[{"label":"Years Experience","value":"5+"},{"label":"Podcasts","value":"50+"},{"label":"Brand Collaborations","value":"50+"},{"label":"Listeners Monthly","value":"2M+"}],"socials":{"instagram":"https://instagram.com/rjmursal","youtube":"https://youtube.com/@rjmursal","spotify":"https://open.spotify.com/show/rjmursal","linkedin":"https://linkedin.com/in/rjmursal"},"profile_image":""}'),
 ('terms', '{"content":"# Terms & Conditions\n\n## Services Terms\nAll services booked through RJMursal are subject to availability and confirmation. Payment terms will be discussed prior to engagement.\n\n## Podcast Feature Terms\nFeature selection is at the sole discretion of RJMursal. Submission does not guarantee inclusion.\n\n## Sponsorship Terms\nSponsorship packages are customized based on campaign goals and audience fit. All deliverables will be agreed upon in writing.\n\n## General Disclaimer\nContent shared on the podcast represents personal views of guests and does not reflect official endorsement.\n\n## Contact for Queries\nReach out via the contact form for any clarifications regarding these terms."}'),
-('settings', '{"site_title":"RJMursal — Voice of the Masses","tagline":"FM Tadka | Podcast Host | Storyteller","contact_email":"hello@rjmursal.com"}')
+('settings', '{"site_title":"RJMursal — Voice of the Masses","tagline":"Studio M | Podcast Host | Storyteller","contact_email":"mursalaltaf17@gmail.com","contact_location":"Srinagar Kashmir"}')
 ON CONFLICT (key) DO NOTHING;
 
 -- Seed sample jobs

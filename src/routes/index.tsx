@@ -1,31 +1,42 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroImg from "@/assets/rj-hero.jpg";
+import heroImg from "@/assets/rj-hero.svg";
 import { SoundWave } from "@/components/SoundWave";
+import { useAboutContent } from "@/hooks/useSiteContent";
 import { Mic, Radio, Sparkles, ArrowRight, Headphones } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "RJMursal — Voice of the Masses | FM Tadka | Podcast Host" },
-      { name: "description", content: "RJ Mursal — voice of FM Tadka, host of one of India's boldest podcasts. Book ads, get featured, partner up." },
+      { title: "RJMursal — Voice of the Masses | Studio M | Podcast Host" },
+      { name: "description", content: "RJ Mursal — voice of Studio M, host of one of India's boldest podcasts. Book ads, get featured, partner up." },
       { property: "og:title", content: "RJMursal — Voice of the Masses" },
-      { property: "og:description", content: "FM Tadka RJ. Podcast Host. Brand Storyteller." },
+      { property: "og:description", content: "Studio M RJ. Podcast Host. Brand Storyteller." },
     ],
   }),
   component: HomePage,
 });
 
 const marqueeItems = [
-  "FM TADKA",
+  "STUDIO M",
   "PODCAST HOST",
   "BRAND VOICE",
   "STORYTELLER",
   "RADIO JOCKEY",
-  "100+ EPISODES",
+  "50+ PODCASTS",
   "BOOK NOW",
 ];
 
 function HomePage() {
+  const aboutData = useAboutContent();
+  const heroStats = aboutData?.stats?.length
+    ? aboutData.stats.slice(0, 4)
+    : [
+        { value: "5+", label: "Years Experience" },
+        { value: "50+", label: "Podcasts" },
+        { value: "2M+", label: "Listeners Monthly" },
+      ];
+  const currentHeroImg = aboutData?.profile_image || heroImg;
+
   return (
     <>
       {/* HERO */}
@@ -43,14 +54,14 @@ function HomePage() {
           <div className="lg:col-span-7 animate-fade-up">
             <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/5 px-4 py-1.5 text-xs uppercase tracking-[0.3em] text-gold mb-6">
               <span className="h-1.5 w-1.5 rounded-full bg-neon-red animate-pulse" />
-              Live on FM Tadka · 92.7
+              Studio M Presents
             </div>
             <h1 className="font-display text-[18vw] sm:text-[14vw] lg:text-[10rem] xl:text-[12rem] leading-[0.85] tracking-tight">
               <span className="block text-foreground">RJ</span>
               <span className="block text-gold-gradient">MURSAL</span>
             </h1>
             <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-xl">
-              Voice of the Masses · FM Tadka · Podcast Host. Stories that move
+              Voice of the Masses · Studio M · Podcast Host. Stories that move
               millions, conversations that hit different.
             </p>
 
@@ -72,14 +83,10 @@ function HomePage() {
             </div>
 
             <div className="mt-10 flex gap-8 text-sm">
-              {[
-                { v: "5+", l: "Years On Air" },
-                { v: "100+", l: "Episodes" },
-                { v: "2M+", l: "Listeners" },
-              ].map((s) => (
-                <div key={s.l}>
-                  <div className="font-display text-3xl text-gold">{s.v}</div>
-                  <div className="text-xs uppercase tracking-widest text-muted-foreground">{s.l}</div>
+              {heroStats.map((s) => (
+                <div key={s.label}>
+                  <div className="font-display text-3xl text-gold">{s.value}</div>
+                  <div className="text-xs uppercase tracking-widest text-muted-foreground">{s.label}</div>
                 </div>
               ))}
             </div>
@@ -88,7 +95,7 @@ function HomePage() {
           <div className="lg:col-span-5 relative animate-fade-up" style={{ animationDelay: "200ms" }}>
             <div className="relative aspect-[3/4] rounded-3xl overflow-hidden border border-gold/30 shadow-gold">
               <img
-                src={heroImg}
+                src={currentHeroImg}
                 alt="RJ Mursal at the studio microphone"
                 className="h-full w-full object-cover"
                 width={1080}
@@ -127,14 +134,14 @@ function HomePage() {
             BUILT FOR <span className="text-gold-gradient">BRANDS</span>
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            From radio ads that play on a million speakers to podcast moments that
+            From branded stories to podcast moments that
             spread overnight — a complete voice & story studio.
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
-            { Icon: Radio, t: "Radio & Podcast Ads", d: "Voice spots, jingles & sponsored mentions that land." },
+            { Icon: Radio, t: "Podcast Promotions", d: "Sponsored mentions, brand integrations and podcast collaborations that land." },
             { Icon: Sparkles, t: "Brand Ads Shoot", d: "Photo + video campaigns with a cinematic edge." },
             { Icon: Headphones, t: "Digital Marketing", d: "Strategy, content, paid — your full social engine." },
             { Icon: Mic, t: "Brand Shoots", d: "Reels, identity films and promo content built to convert." },

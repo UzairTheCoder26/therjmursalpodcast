@@ -142,7 +142,7 @@ function SponsorCard() {
       </div>
       <h2 className="font-display text-4xl mb-3">PUT YOUR BRAND ON THE MIC</h2>
       <p className="text-muted-foreground mb-6">
-        2M+ monthly listeners. 100+ episodes. Custom integrations from
+        2M+ monthly listeners. 50+ podcasts. Custom integrations from
         host-reads to full-episode title sponsorships.
       </p>
 
