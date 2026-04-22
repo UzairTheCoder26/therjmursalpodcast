@@ -16,7 +16,16 @@ import { Route as CareersRouteImport } from './routes/careers'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminTermsRouteImport } from './routes/admin.terms'
+import { Route as AdminSponsorshipsRouteImport } from './routes/admin.sponsorships'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminJobsRouteImport } from './routes/admin.jobs'
+import { Route as AdminFeaturesRouteImport } from './routes/admin.features'
+import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
+import { Route as AdminApplicationsRouteImport } from './routes/admin.applications'
+import { Route as AdminAboutRouteImport } from './routes/admin.about'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -53,9 +62,54 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTermsRoute = AdminTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSponsorshipsRoute = AdminSponsorshipsRouteImport.update({
+  id: '/sponsorships',
+  path: '/sponsorships',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminJobsRoute = AdminJobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFeaturesRoute = AdminFeaturesRouteImport.update({
+  id: '/features',
+  path: '/features',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBookingsRoute = AdminBookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminApplicationsRoute = AdminApplicationsRouteImport.update({
+  id: '/applications',
+  path: '/applications',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAboutRoute = AdminAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => AdminRoute,
 } as any)
 
@@ -67,17 +121,34 @@ export interface FileRoutesByFullPath {
   '/podcast': typeof PodcastRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
+  '/admin/about': typeof AdminAboutRoute
+  '/admin/applications': typeof AdminApplicationsRoute
+  '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/features': typeof AdminFeaturesRoute
+  '/admin/jobs': typeof AdminJobsRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/sponsorships': typeof AdminSponsorshipsRoute
+  '/admin/terms': typeof AdminTermsRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRouteWithChildren
   '/careers': typeof CareersRoute
   '/podcast': typeof PodcastRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
+  '/admin/about': typeof AdminAboutRoute
+  '/admin/applications': typeof AdminApplicationsRoute
+  '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/features': typeof AdminFeaturesRoute
+  '/admin/jobs': typeof AdminJobsRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/sponsorships': typeof AdminSponsorshipsRoute
+  '/admin/terms': typeof AdminTermsRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -88,7 +159,16 @@ export interface FileRoutesById {
   '/podcast': typeof PodcastRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
+  '/admin/about': typeof AdminAboutRoute
+  '/admin/applications': typeof AdminApplicationsRoute
+  '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/features': typeof AdminFeaturesRoute
+  '/admin/jobs': typeof AdminJobsRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/sponsorships': typeof AdminSponsorshipsRoute
+  '/admin/terms': typeof AdminTermsRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -100,17 +180,34 @@ export interface FileRouteTypes {
     | '/podcast'
     | '/services'
     | '/terms'
+    | '/admin/about'
+    | '/admin/applications'
+    | '/admin/bookings'
+    | '/admin/features'
+    | '/admin/jobs'
     | '/admin/login'
+    | '/admin/settings'
+    | '/admin/sponsorships'
+    | '/admin/terms'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/admin'
     | '/careers'
     | '/podcast'
     | '/services'
     | '/terms'
+    | '/admin/about'
+    | '/admin/applications'
+    | '/admin/bookings'
+    | '/admin/features'
+    | '/admin/jobs'
     | '/admin/login'
+    | '/admin/settings'
+    | '/admin/sponsorships'
+    | '/admin/terms'
+    | '/admin'
   id:
     | '__root__'
     | '/'
@@ -120,7 +217,16 @@ export interface FileRouteTypes {
     | '/podcast'
     | '/services'
     | '/terms'
+    | '/admin/about'
+    | '/admin/applications'
+    | '/admin/bookings'
+    | '/admin/features'
+    | '/admin/jobs'
     | '/admin/login'
+    | '/admin/settings'
+    | '/admin/sponsorships'
+    | '/admin/terms'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -184,6 +290,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/terms': {
+      id: '/admin/terms'
+      path: '/terms'
+      fullPath: '/admin/terms'
+      preLoaderRoute: typeof AdminTermsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/sponsorships': {
+      id: '/admin/sponsorships'
+      path: '/sponsorships'
+      fullPath: '/admin/sponsorships'
+      preLoaderRoute: typeof AdminSponsorshipsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/login'
@@ -191,15 +325,68 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/jobs': {
+      id: '/admin/jobs'
+      path: '/jobs'
+      fullPath: '/admin/jobs'
+      preLoaderRoute: typeof AdminJobsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/features': {
+      id: '/admin/features'
+      path: '/features'
+      fullPath: '/admin/features'
+      preLoaderRoute: typeof AdminFeaturesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/bookings': {
+      id: '/admin/bookings'
+      path: '/bookings'
+      fullPath: '/admin/bookings'
+      preLoaderRoute: typeof AdminBookingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/applications': {
+      id: '/admin/applications'
+      path: '/applications'
+      fullPath: '/admin/applications'
+      preLoaderRoute: typeof AdminApplicationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/about': {
+      id: '/admin/about'
+      path: '/about'
+      fullPath: '/admin/about'
+      preLoaderRoute: typeof AdminAboutRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminAboutRoute: typeof AdminAboutRoute
+  AdminApplicationsRoute: typeof AdminApplicationsRoute
+  AdminBookingsRoute: typeof AdminBookingsRoute
+  AdminFeaturesRoute: typeof AdminFeaturesRoute
+  AdminJobsRoute: typeof AdminJobsRoute
   AdminLoginRoute: typeof AdminLoginRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminSponsorshipsRoute: typeof AdminSponsorshipsRoute
+  AdminTermsRoute: typeof AdminTermsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAboutRoute: AdminAboutRoute,
+  AdminApplicationsRoute: AdminApplicationsRoute,
+  AdminBookingsRoute: AdminBookingsRoute,
+  AdminFeaturesRoute: AdminFeaturesRoute,
+  AdminJobsRoute: AdminJobsRoute,
   AdminLoginRoute: AdminLoginRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminSponsorshipsRoute: AdminSponsorshipsRoute,
+  AdminTermsRoute: AdminTermsRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
@@ -216,3 +403,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
