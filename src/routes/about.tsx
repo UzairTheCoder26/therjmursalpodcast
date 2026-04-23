@@ -20,6 +20,11 @@ function AboutPage() {
 
   const img = data?.profile_image || heroImg;
   const socials = data?.socials || {};
+  const enabled = socials.enabled || {};
+  const normalizeUrl = (url?: string) => {
+    if (!url) return "";
+    return /^https?:\/\//i.test(url) ? url : `https://${url}`;
+  };
 
   return (
     <div className="py-20">
@@ -56,26 +61,26 @@ function AboutPage() {
             </p>
 
             <div className="mt-10 flex gap-3">
-              {socials.instagram && (
-                <a href={socials.instagram} target="_blank" rel="noreferrer"
+              {(enabled.instagram ?? true) && socials.instagram && (
+                <a href={normalizeUrl(socials.instagram)} target="_blank" rel="noreferrer"
                   className="h-11 w-11 rounded-full border border-border flex items-center justify-center hover:border-gold hover:text-gold hover:shadow-gold transition-all">
                   <Instagram className="h-4 w-4" />
                 </a>
               )}
-              {socials.youtube && (
-                <a href={socials.youtube} target="_blank" rel="noreferrer"
+              {(enabled.youtube ?? true) && socials.youtube && (
+                <a href={normalizeUrl(socials.youtube)} target="_blank" rel="noreferrer"
                   className="h-11 w-11 rounded-full border border-border flex items-center justify-center hover:border-gold hover:text-gold hover:shadow-gold transition-all">
                   <Youtube className="h-4 w-4" />
                 </a>
               )}
-              {socials.spotify && (
-                <a href={socials.spotify} target="_blank" rel="noreferrer"
+              {(enabled.spotify ?? false) && socials.spotify && (
+                <a href={normalizeUrl(socials.spotify)} target="_blank" rel="noreferrer"
                   className="h-11 w-11 rounded-full border border-border flex items-center justify-center hover:border-gold hover:text-gold hover:shadow-gold transition-all">
                   <Music2 className="h-4 w-4" />
                 </a>
               )}
-              {socials.linkedin && (
-                <a href={socials.linkedin} target="_blank" rel="noreferrer"
+              {(enabled.linkedin ?? false) && socials.linkedin && (
+                <a href={normalizeUrl(socials.linkedin)} target="_blank" rel="noreferrer"
                   className="h-11 w-11 rounded-full border border-border flex items-center justify-center hover:border-gold hover:text-gold hover:shadow-gold transition-all">
                   <Linkedin className="h-4 w-4" />
                 </a>

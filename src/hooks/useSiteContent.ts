@@ -10,6 +10,12 @@ export interface AboutContent {
     youtube?: string;
     spotify?: string;
     linkedin?: string;
+    enabled?: {
+      instagram?: boolean;
+      youtube?: boolean;
+      spotify?: boolean;
+      linkedin?: boolean;
+    };
   };
   profile_image?: string;
 }

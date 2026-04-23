@@ -8,7 +8,18 @@ interface AboutData {
   title: string;
   bio: string;
   stats: { label: string; value: string }[];
-  socials: { instagram?: string; youtube?: string; spotify?: string; linkedin?: string };
+  socials: {
+    instagram?: string;
+    youtube?: string;
+    spotify?: string;
+    linkedin?: string;
+    enabled?: {
+      instagram?: boolean;
+      youtube?: boolean;
+      spotify?: boolean;
+      linkedin?: boolean;
+    };
+  };
   profile_image?: string;
 }
 
@@ -23,7 +34,23 @@ function EditAbout() {
 
   useEffect(() => {
     supabase.from("site_content").select("value").eq("key", "about").maybeSingle()
-      .then(({ data }) => { if (data) setData(data.value as unknown as AboutData); });
+      .then(({ data }) => {
+        if (data) {
+          const incoming = data.value as unknown as AboutData;
+          setData({
+            ...incoming,
+            socials: {
+              ...incoming.socials,
+              enabled: {
+                instagram: incoming.socials?.enabled?.instagram ?? true,
+                youtube: incoming.socials?.enabled?.youtube ?? true,
+                spotify: incoming.socials?.enabled?.spotify ?? false,
+                linkedin: incoming.socials?.enabled?.linkedin ?? false,
+              },
+            },
+          });
+        }
+      });
   }, []);
 
   if (!data) return <div className="flex justify-center p-12"><Loader2 className="h-6 w-6 animate-spin text-gold"/></div>;
@@ -79,9 +106,61 @@ function EditAbout() {
         </div>
 
         <Field label="Instagram URL" value={data.socials.instagram || ""} onChange={(v) => setData({ ...data, socials: { ...data.socials, instagram: v } })} />
+        <ToggleField
+          label="Show Instagram Icon"
+          checked={data.socials.enabled?.instagram ?? true}
+          onChange={(checked) =>
+            setData({
+              ...data,
+              socials: {
+                ...data.socials,
+                enabled: { ...data.socials.enabled, instagram: checked },
+              },
+            })
+          }
+        />
         <Field label="YouTube URL" value={data.socials.youtube || ""} onChange={(v) => setData({ ...data, socials: { ...data.socials, youtube: v } })} />
+        <ToggleField
+          label="Show YouTube Icon"
+          checked={data.socials.enabled?.youtube ?? true}
+          onChange={(checked) =>
+            setData({
+              ...data,
+              socials: {
+                ...data.socials,
+                enabled: { ...data.socials.enabled, youtube: checked },
+              },
+            })
+          }
+        />
         <Field label="Spotify URL" value={data.socials.spotify || ""} onChange={(v) => setData({ ...data, socials: { ...data.socials, spotify: v } })} />
+        <ToggleField
+          label="Show Spotify Icon"
+          checked={data.socials.enabled?.spotify ?? false}
+          onChange={(checked) =>
+            setData({
+              ...data,
+              socials: {
+                ...data.socials,
+                enabled: { ...data.socials.enabled, spotify: checked },
+              },
+            })
+          }
+        />
         <Field label="LinkedIn URL" value={data.socials.linkedin || ""} onChange={(v) => setData({ ...data, socials: { ...data.socials, linkedin: v } })} />
+        <ToggleField
+          label="Show LinkedIn Icon"
+          checked={data.socials.enabled?.linkedin ?? false}
+          onChange={(checked) =>
+            setData({
+              ...data,
+              socials: {
+                ...data.socials,
+                enabled: { ...data.socials.enabled, linkedin: checked },
+              },
+            })
+          }
+        />
 
         <button onClick={save} disabled={saving} className="rounded-full bg-gradient-to-r from-gold to-gold-glow px-8 py-3 text-sm font-bold uppercase tracking-widest text-ink hover:shadow-gold disabled:opacity-60 inline-flex items-center gap-2">
           {saving && <Loader2 className="h-4 w-4 animate-spin"/>} Save Changes
@@ -101,5 +180,19 @@ function Field({ label, value, onChange, multiline }: { label: string; value: st
         <input value={value} onChange={(e) => onChange(e.target.value)} className="w-full rounded-lg bg-input border border-border px-3 py-2 text-sm focus:border-gold focus:outline-none"/>
       )}
     </div>
+  );
+}
+
+function ToggleField({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
+  return (
+    <label className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+        className="h-4 w-4 rounded border-border accent-gold"
+      />
+      {label}
+    </label>
   );
 }

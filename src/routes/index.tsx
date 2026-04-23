@@ -56,11 +56,11 @@ function HomePage() {
               <span className="h-1.5 w-1.5 rounded-full bg-neon-red animate-pulse" />
               Studio M Presents
             </div>
-            <h1 className="font-display text-[18vw] sm:text-[14vw] lg:text-[10rem] xl:text-[12rem] leading-[0.85] tracking-tight">
+            <h1 className="ml-[4px] sm:ml-[1px] lg:-ml-[3px] font-display text-[18vw] sm:text-[14vw] lg:text-[10rem] xl:text-[12rem] leading-[0.85] tracking-tight">
               <span className="block text-foreground">RJ</span>
               <span className="block text-gold-gradient">MURSAL</span>
             </h1>
-            <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-xl">
+            <p className="mt-6 ml-[8px] sm:ml-[5px] text-lg sm:text-xl text-muted-foreground max-w-xl">
               Voice of the Masses · Studio M · Podcast Host. Stories that move
               millions, conversations that hit different.
             </p>
@@ -82,11 +82,11 @@ function HomePage() {
               </Link>
             </div>
 
-            <div className="mt-10 flex gap-8 text-sm">
-              {heroStats.map((s) => (
-                <div key={s.label}>
-                  <div className="font-display text-3xl text-gold">{s.value}</div>
-                  <div className="text-xs uppercase tracking-widest text-muted-foreground">{s.label}</div>
+            <div className="mt-10 flex flex-nowrap gap-3 sm:gap-8 text-sm max-w-full overflow-x-auto sm:overflow-visible">
+              {heroStats.map((s, i) => (
+                <div key={s.label} className={`min-w-0 shrink-0 sm:shrink ${i === 3 ? "hidden sm:block" : ""}`}>
+                  <div className="font-display text-2xl sm:text-3xl text-gold">{s.value}</div>
+                  <div className="text-[10px] sm:text-xs uppercase tracking-wide sm:tracking-widest text-muted-foreground">{s.label}</div>
                 </div>
               ))}
             </div>
@@ -126,10 +126,10 @@ function HomePage() {
         </div>
       </section>
 
-      {/* WHAT I DO */}
+      {/* WHAT WE DO */}
       <section className="py-24 max-w-7xl mx-auto px-5 lg:px-8">
         <div className="text-center mb-16">
-          <p className="text-xs uppercase tracking-[0.4em] text-gold mb-3">What I Do</p>
+          <p className="text-xs uppercase tracking-[0.4em] text-gold mb-3">What We Do</p>
           <h2 className="font-display text-5xl sm:text-7xl">
             BUILT FOR <span className="text-gold-gradient">BRANDS</span>
           </h2>

@@ -6,8 +6,13 @@ export function SiteFooter() {
   const aboutData = useAboutContent();
   const settings = useSiteSettings();
   const socials = aboutData?.socials || {};
+  const enabled = socials.enabled || {};
   const contactEmail = settings?.contact_email || "mursalaltaf17@gmail.com";
   const contactLocation = settings?.contact_location || "Srinagar Kashmir";
+  const normalizeUrl = (url?: string) => {
+    if (!url) return "";
+    return /^https?:\/\//i.test(url) ? url : `https://${url}`;
+  };
 
   return (
     <footer className="relative border-t border-border/60 bg-ink-2 mt-20">
@@ -27,12 +32,12 @@ export function SiteFooter() {
           </p>
           <div className="flex gap-3 mt-6">
             {[
-              { Icon: Instagram, href: socials.instagram },
-              { Icon: Youtube, href: socials.youtube },
-              { Icon: Music2, href: socials.spotify },
-              { Icon: Linkedin, href: socials.linkedin },
+              { Icon: Instagram, href: normalizeUrl(socials.instagram), enabled: enabled.instagram ?? true },
+              { Icon: Youtube, href: normalizeUrl(socials.youtube), enabled: enabled.youtube ?? true },
+              { Icon: Music2, href: normalizeUrl(socials.spotify), enabled: enabled.spotify ?? false },
+              { Icon: Linkedin, href: normalizeUrl(socials.linkedin), enabled: enabled.linkedin ?? false },
             ]
-              .filter((item) => item.href)
+              .filter((item) => item.href && item.enabled)
               .map(({ Icon, href }) => (
               <a
                 key={href}
