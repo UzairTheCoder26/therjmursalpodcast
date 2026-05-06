@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { initialsFromName, instagramUrl, normalizeInstagramHandle } from "@/lib/team";
 
@@ -23,30 +22,38 @@ export function TeamMemberCard({
 
   return (
     <div className="group rounded-2xl border border-border bg-card p-6 hover:border-gold/60 hover:-translate-y-1 hover:shadow-gold transition-all duration-300">
-      <div className="flex items-start gap-4">
-        <Avatar className="h-14 w-14 border border-gold/30">
-          <AvatarImage src={member.photo_url || ""} alt={member.full_name} className="object-cover" />
-          <AvatarFallback className="bg-gradient-to-br from-gold/20 to-neon-red/20 text-gold font-bold">
-            {initials}
-          </AvatarFallback>
-        </Avatar>
+      {/* Portrait frame (3:4) */}
+      <div className="aspect-[3/4] rounded-2xl overflow-hidden border border-border bg-ink-2">
+        {member.photo_url ? (
+          <img
+            src={member.photo_url}
+            alt={member.full_name}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            loading="lazy"
+          />
+        ) : (
+          <div className="h-full flex items-center justify-center bg-gradient-to-br from-gold/20 to-neon-red/20">
+            <div className="text-gold font-display text-4xl tracking-wider">{initials}</div>
+          </div>
+        )}
+      </div>
 
-        <div className="min-w-0 flex-1">
-          <div className="font-display text-xl tracking-wider truncate">{member.full_name}</div>
-          <div className="text-sm text-muted-foreground">{member.role}</div>
-          {handle ? (
-            <a
-              href={igUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-flex text-sm font-bold text-gold hover:underline"
-            >
-              @{handle}
-            </a>
-          ) : (
-            <div className="mt-2 text-sm text-muted-foreground/70">@</div>
-          )}
-        </div>
+      <div className="mt-5">
+        <div className="font-display text-xl tracking-wider truncate">{member.full_name}</div>
+        <div className="text-sm text-muted-foreground mt-1">{member.role}</div>
+
+        {handle ? (
+          <a
+            href={igUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-flex text-sm font-bold text-gold hover:underline"
+          >
+            @{handle}
+          </a>
+        ) : (
+          <div className="mt-2 text-sm text-muted-foreground/70">@</div>
+        )}
       </div>
 
       <div className="mt-5">
