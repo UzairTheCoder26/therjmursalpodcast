@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TeamRouteImport } from './routes/team'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PodcastRouteImport } from './routes/podcast'
 import { Route as CareersRouteImport } from './routes/careers'
@@ -18,6 +19,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminTermsRouteImport } from './routes/admin.terms'
+import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSponsorshipsRouteImport } from './routes/admin.sponsorships'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
@@ -30,6 +32,11 @@ import { Route as AdminAboutRouteImport } from './routes/admin.about'
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeamRoute = TeamRouteImport.update({
+  id: '/team',
+  path: '/team',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesRoute = ServicesRouteImport.update({
@@ -70,6 +77,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const AdminTermsRoute = AdminTermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTeamRoute = AdminTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminSponsorshipsRoute = AdminSponsorshipsRouteImport.update({
@@ -120,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/careers': typeof CareersRoute
   '/podcast': typeof PodcastRoute
   '/services': typeof ServicesRoute
+  '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/admin/about': typeof AdminAboutRoute
   '/admin/applications': typeof AdminApplicationsRoute
@@ -129,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsorships': typeof AdminSponsorshipsRoute
+  '/admin/team': typeof AdminTeamRoute
   '/admin/terms': typeof AdminTermsRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -138,6 +152,7 @@ export interface FileRoutesByTo {
   '/careers': typeof CareersRoute
   '/podcast': typeof PodcastRoute
   '/services': typeof ServicesRoute
+  '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/admin/about': typeof AdminAboutRoute
   '/admin/applications': typeof AdminApplicationsRoute
@@ -147,6 +162,7 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsorships': typeof AdminSponsorshipsRoute
+  '/admin/team': typeof AdminTeamRoute
   '/admin/terms': typeof AdminTermsRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -158,6 +174,7 @@ export interface FileRoutesById {
   '/careers': typeof CareersRoute
   '/podcast': typeof PodcastRoute
   '/services': typeof ServicesRoute
+  '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/admin/about': typeof AdminAboutRoute
   '/admin/applications': typeof AdminApplicationsRoute
@@ -167,6 +184,7 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsorships': typeof AdminSponsorshipsRoute
+  '/admin/team': typeof AdminTeamRoute
   '/admin/terms': typeof AdminTermsRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -179,6 +197,7 @@ export interface FileRouteTypes {
     | '/careers'
     | '/podcast'
     | '/services'
+    | '/team'
     | '/terms'
     | '/admin/about'
     | '/admin/applications'
@@ -188,6 +207,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/settings'
     | '/admin/sponsorships'
+    | '/admin/team'
     | '/admin/terms'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -197,6 +217,7 @@ export interface FileRouteTypes {
     | '/careers'
     | '/podcast'
     | '/services'
+    | '/team'
     | '/terms'
     | '/admin/about'
     | '/admin/applications'
@@ -206,6 +227,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/settings'
     | '/admin/sponsorships'
+    | '/admin/team'
     | '/admin/terms'
     | '/admin'
   id:
@@ -216,6 +238,7 @@ export interface FileRouteTypes {
     | '/careers'
     | '/podcast'
     | '/services'
+    | '/team'
     | '/terms'
     | '/admin/about'
     | '/admin/applications'
@@ -225,6 +248,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/settings'
     | '/admin/sponsorships'
+    | '/admin/team'
     | '/admin/terms'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -236,6 +260,7 @@ export interface RootRouteChildren {
   CareersRoute: typeof CareersRoute
   PodcastRoute: typeof PodcastRoute
   ServicesRoute: typeof ServicesRoute
+  TeamRoute: typeof TeamRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -246,6 +271,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/team': {
+      id: '/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof TeamRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services': {
@@ -302,6 +334,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/admin/terms'
       preLoaderRoute: typeof AdminTermsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/team': {
+      id: '/admin/team'
+      path: '/team'
+      fullPath: '/admin/team'
+      preLoaderRoute: typeof AdminTeamRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/sponsorships': {
@@ -372,6 +411,7 @@ interface AdminRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminSponsorshipsRoute: typeof AdminSponsorshipsRoute
+  AdminTeamRoute: typeof AdminTeamRoute
   AdminTermsRoute: typeof AdminTermsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
@@ -385,6 +425,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminSponsorshipsRoute: AdminSponsorshipsRoute,
+  AdminTeamRoute: AdminTeamRoute,
   AdminTermsRoute: AdminTermsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
@@ -398,6 +439,7 @@ const rootRouteChildren: RootRouteChildren = {
   CareersRoute: CareersRoute,
   PodcastRoute: PodcastRoute,
   ServicesRoute: ServicesRoute,
+  TeamRoute: TeamRoute,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport

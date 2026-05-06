@@ -2,7 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/rj-hero.svg";
 import { SoundWave } from "@/components/SoundWave";
 import { useAboutContent } from "@/hooks/useSiteContent";
+import { useFeaturedTeamMembers } from "@/hooks/useTeamMembers";
+import { useHomeTeamContent } from "@/hooks/useTeamContent";
 import { Mic, Radio, Sparkles, ArrowRight, Headphones } from "lucide-react";
+import { TeamMemberCard } from "@/components/team/TeamMemberCard";
+import { publicProfileUrl } from "@/lib/storage";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -28,6 +32,8 @@ const marqueeItems = [
 
 function HomePage() {
   const aboutData = useAboutContent();
+  const featured = useFeaturedTeamMembers(3);
+  const homeTeam = useHomeTeamContent();
   const heroStats = aboutData?.stats?.length
     ? aboutData.stats.slice(0, 4)
     : [
@@ -165,6 +171,49 @@ function HomePage() {
             className="inline-flex items-center gap-2 text-gold font-bold uppercase tracking-widest text-sm hover:gap-4 transition-all"
           >
             Explore All Services <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
+
+      {/* OUR TEAM */}
+      <section className="py-24 max-w-7xl mx-auto px-5 lg:px-8">
+        <div className="flex items-end justify-between gap-6 mb-10">
+          <div>
+            <p className="text-xs uppercase tracking-[0.4em] text-gold mb-3">Our Team</p>
+            <h2 className="font-display text-5xl sm:text-6xl tracking-wider">
+              THE CREW <span className="text-gold-gradient">BEHIND</span> THE MIC
+            </h2>
+            <p className="mt-3 text-muted-foreground max-w-2xl">
+              Three featured faces — and a bigger team building every story end‑to‑end.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {(featured || []).slice(0, 3).map((m) => (
+            <TeamMemberCard
+              key={m.id}
+              member={{
+                full_name: m.full_name,
+                role: m.role,
+                instagram_handle: m.instagram_handle,
+                contact_button_label: m.contact_button_label,
+                photo_url: publicProfileUrl(m.photo_path),
+              }}
+              onContact={() => {
+                const url = m.instagram_handle ? `https://instagram.com/${m.instagram_handle.replace(/^@/, "")}` : "";
+                if (url) window.open(url, "_blank", "noopener,noreferrer");
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link
+            to="/team"
+            className="inline-flex items-center justify-center rounded-full border-2 border-gold/40 px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-foreground hover:bg-gold/10 hover:border-gold transition-all"
+          >
+            {homeTeam?.meet_whole_team_button_label || "Meet Our Whole Team →"}
           </Link>
         </div>
       </section>

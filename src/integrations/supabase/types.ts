@@ -176,6 +176,45 @@ export type Database = {
         }
         Relationships: []
       }
+      team_members: {
+        Row: {
+          contact_button_label: string
+          created_at: string
+          featured: boolean
+          full_name: string
+          id: string
+          instagram_handle: string
+          photo_path: string
+          role: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          contact_button_label?: string
+          created_at?: string
+          featured?: boolean
+          full_name: string
+          id?: string
+          instagram_handle?: string
+          photo_path?: string
+          role: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          contact_button_label?: string
+          created_at?: string
+          featured?: boolean
+          full_name?: string
+          id?: string
+          instagram_handle?: string
+          photo_path?: string
+          role?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       sponsorships: {
         Row: {
           budget_range: string
