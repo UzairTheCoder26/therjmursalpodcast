@@ -7,6 +7,7 @@ import { useHomeTeamContent } from "@/hooks/useTeamContent";
 import { Mic, Radio, Sparkles, ArrowRight, Headphones } from "lucide-react";
 import { TeamMemberCard } from "@/components/team/TeamMemberCard";
 import { publicProfileUrl } from "@/lib/storage";
+import { WriteALetterSection } from "@/components/home/WriteALetterSection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -248,6 +249,8 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      <WriteALetterSection />
     </>
   );
 }

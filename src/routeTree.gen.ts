@@ -23,6 +23,7 @@ import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSponsorshipsRouteImport } from './routes/admin.sponsorships'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminLettersRouteImport } from './routes/admin.letters'
 import { Route as AdminJobsRouteImport } from './routes/admin.jobs'
 import { Route as AdminFeaturesRouteImport } from './routes/admin.features'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
@@ -99,6 +100,11 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminLettersRoute = AdminLettersRouteImport.update({
+  id: '/letters',
+  path: '/letters',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminJobsRoute = AdminJobsRouteImport.update({
   id: '/jobs',
   path: '/jobs',
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/features': typeof AdminFeaturesRoute
   '/admin/jobs': typeof AdminJobsRoute
+  '/admin/letters': typeof AdminLettersRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsorships': typeof AdminSponsorshipsRoute
@@ -159,6 +166,7 @@ export interface FileRoutesByTo {
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/features': typeof AdminFeaturesRoute
   '/admin/jobs': typeof AdminJobsRoute
+  '/admin/letters': typeof AdminLettersRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsorships': typeof AdminSponsorshipsRoute
@@ -181,6 +189,7 @@ export interface FileRoutesById {
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/features': typeof AdminFeaturesRoute
   '/admin/jobs': typeof AdminJobsRoute
+  '/admin/letters': typeof AdminLettersRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsorships': typeof AdminSponsorshipsRoute
@@ -204,6 +213,7 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/features'
     | '/admin/jobs'
+    | '/admin/letters'
     | '/admin/login'
     | '/admin/settings'
     | '/admin/sponsorships'
@@ -224,6 +234,7 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/features'
     | '/admin/jobs'
+    | '/admin/letters'
     | '/admin/login'
     | '/admin/settings'
     | '/admin/sponsorships'
@@ -245,6 +256,7 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/features'
     | '/admin/jobs'
+    | '/admin/letters'
     | '/admin/login'
     | '/admin/settings'
     | '/admin/sponsorships'
@@ -364,6 +376,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/letters': {
+      id: '/admin/letters'
+      path: '/letters'
+      fullPath: '/admin/letters'
+      preLoaderRoute: typeof AdminLettersRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/jobs': {
       id: '/admin/jobs'
       path: '/jobs'
@@ -408,6 +427,7 @@ interface AdminRouteChildren {
   AdminBookingsRoute: typeof AdminBookingsRoute
   AdminFeaturesRoute: typeof AdminFeaturesRoute
   AdminJobsRoute: typeof AdminJobsRoute
+  AdminLettersRoute: typeof AdminLettersRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminSponsorshipsRoute: typeof AdminSponsorshipsRoute
@@ -422,6 +442,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminBookingsRoute: AdminBookingsRoute,
   AdminFeaturesRoute: AdminFeaturesRoute,
   AdminJobsRoute: AdminJobsRoute,
+  AdminLettersRoute: AdminLettersRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminSponsorshipsRoute: AdminSponsorshipsRoute,
