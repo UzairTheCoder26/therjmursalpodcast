@@ -13,6 +13,7 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PodcastRouteImport } from './routes/podcast'
+import { Route as ParentConsentRouteImport } from './routes/parent-consent'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
@@ -26,6 +27,7 @@ import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminLettersRouteImport } from './routes/admin.letters'
 import { Route as AdminJobsRouteImport } from './routes/admin.jobs'
 import { Route as AdminFeaturesRouteImport } from './routes/admin.features'
+import { Route as AdminConsentRouteImport } from './routes/admin.consent'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 import { Route as AdminApplicationsRouteImport } from './routes/admin.applications'
 import { Route as AdminAboutRouteImport } from './routes/admin.about'
@@ -48,6 +50,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const PodcastRoute = PodcastRouteImport.update({
   id: '/podcast',
   path: '/podcast',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentConsentRoute = ParentConsentRouteImport.update({
+  id: '/parent-consent',
+  path: '/parent-consent',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -115,6 +122,11 @@ const AdminFeaturesRoute = AdminFeaturesRouteImport.update({
   path: '/features',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminConsentRoute = AdminConsentRouteImport.update({
+  id: '/consent',
+  path: '/consent',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminBookingsRoute = AdminBookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
@@ -136,6 +148,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/careers': typeof CareersRoute
+  '/parent-consent': typeof ParentConsentRoute
   '/podcast': typeof PodcastRoute
   '/services': typeof ServicesRoute
   '/team': typeof TeamRoute
@@ -143,6 +156,7 @@ export interface FileRoutesByFullPath {
   '/admin/about': typeof AdminAboutRoute
   '/admin/applications': typeof AdminApplicationsRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/consent': typeof AdminConsentRoute
   '/admin/features': typeof AdminFeaturesRoute
   '/admin/jobs': typeof AdminJobsRoute
   '/admin/letters': typeof AdminLettersRoute
@@ -157,6 +171,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
+  '/parent-consent': typeof ParentConsentRoute
   '/podcast': typeof PodcastRoute
   '/services': typeof ServicesRoute
   '/team': typeof TeamRoute
@@ -164,6 +179,7 @@ export interface FileRoutesByTo {
   '/admin/about': typeof AdminAboutRoute
   '/admin/applications': typeof AdminApplicationsRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/consent': typeof AdminConsentRoute
   '/admin/features': typeof AdminFeaturesRoute
   '/admin/jobs': typeof AdminJobsRoute
   '/admin/letters': typeof AdminLettersRoute
@@ -180,6 +196,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/careers': typeof CareersRoute
+  '/parent-consent': typeof ParentConsentRoute
   '/podcast': typeof PodcastRoute
   '/services': typeof ServicesRoute
   '/team': typeof TeamRoute
@@ -187,6 +204,7 @@ export interface FileRoutesById {
   '/admin/about': typeof AdminAboutRoute
   '/admin/applications': typeof AdminApplicationsRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/consent': typeof AdminConsentRoute
   '/admin/features': typeof AdminFeaturesRoute
   '/admin/jobs': typeof AdminJobsRoute
   '/admin/letters': typeof AdminLettersRoute
@@ -204,6 +222,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/careers'
+    | '/parent-consent'
     | '/podcast'
     | '/services'
     | '/team'
@@ -211,6 +230,7 @@ export interface FileRouteTypes {
     | '/admin/about'
     | '/admin/applications'
     | '/admin/bookings'
+    | '/admin/consent'
     | '/admin/features'
     | '/admin/jobs'
     | '/admin/letters'
@@ -225,6 +245,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
+    | '/parent-consent'
     | '/podcast'
     | '/services'
     | '/team'
@@ -232,6 +253,7 @@ export interface FileRouteTypes {
     | '/admin/about'
     | '/admin/applications'
     | '/admin/bookings'
+    | '/admin/consent'
     | '/admin/features'
     | '/admin/jobs'
     | '/admin/letters'
@@ -247,6 +269,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/careers'
+    | '/parent-consent'
     | '/podcast'
     | '/services'
     | '/team'
@@ -254,6 +277,7 @@ export interface FileRouteTypes {
     | '/admin/about'
     | '/admin/applications'
     | '/admin/bookings'
+    | '/admin/consent'
     | '/admin/features'
     | '/admin/jobs'
     | '/admin/letters'
@@ -270,6 +294,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
   CareersRoute: typeof CareersRoute
+  ParentConsentRoute: typeof ParentConsentRoute
   PodcastRoute: typeof PodcastRoute
   ServicesRoute: typeof ServicesRoute
   TeamRoute: typeof TeamRoute
@@ -304,6 +329,13 @@ declare module '@tanstack/react-router' {
       path: '/podcast'
       fullPath: '/podcast'
       preLoaderRoute: typeof PodcastRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent-consent': {
+      id: '/parent-consent'
+      path: '/parent-consent'
+      fullPath: '/parent-consent'
+      preLoaderRoute: typeof ParentConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -397,6 +429,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminFeaturesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/consent': {
+      id: '/admin/consent'
+      path: '/consent'
+      fullPath: '/admin/consent'
+      preLoaderRoute: typeof AdminConsentRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/bookings': {
       id: '/admin/bookings'
       path: '/bookings'
@@ -425,6 +464,7 @@ interface AdminRouteChildren {
   AdminAboutRoute: typeof AdminAboutRoute
   AdminApplicationsRoute: typeof AdminApplicationsRoute
   AdminBookingsRoute: typeof AdminBookingsRoute
+  AdminConsentRoute: typeof AdminConsentRoute
   AdminFeaturesRoute: typeof AdminFeaturesRoute
   AdminJobsRoute: typeof AdminJobsRoute
   AdminLettersRoute: typeof AdminLettersRoute
@@ -440,6 +480,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminAboutRoute: AdminAboutRoute,
   AdminApplicationsRoute: AdminApplicationsRoute,
   AdminBookingsRoute: AdminBookingsRoute,
+  AdminConsentRoute: AdminConsentRoute,
   AdminFeaturesRoute: AdminFeaturesRoute,
   AdminJobsRoute: AdminJobsRoute,
   AdminLettersRoute: AdminLettersRoute,
@@ -458,6 +499,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
   CareersRoute: CareersRoute,
+  ParentConsentRoute: ParentConsentRoute,
   PodcastRoute: PodcastRoute,
   ServicesRoute: ServicesRoute,
   TeamRoute: TeamRoute,

@@ -62,6 +62,7 @@ export function SiteFooter() {
             <li><Link to="/podcast" className="hover:text-gold">Podcast</Link></li>
             <li><Link to="/careers" className="hover:text-gold">Careers</Link></li>
             <li><Link to="/terms" className="hover:text-gold">Terms</Link></li>
+            <li><Link to="/parent-consent" className="hover:text-gold">Minor Consent</Link></li>
           </ul>
         </div>
 

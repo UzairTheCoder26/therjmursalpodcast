@@ -9,6 +9,7 @@ const links = [
   { to: "/podcast", label: "Podcast" },
   { to: "/careers", label: "Careers" },
   { to: "/terms", label: "Terms" },
+  { to: "/parent-consent", label: "Minor Consent" },
 ] as const;
 
 export function SiteHeader() {

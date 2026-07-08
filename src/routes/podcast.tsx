@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Mic, Megaphone, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -36,6 +36,14 @@ function PodcastPage() {
           <FeatureCard />
           <SponsorCard />
         </div>
+
+        <p className="mt-10 text-center text-sm text-muted-foreground">
+          Minors under 18 require parent/guardian consent before participating.{" "}
+          <Link to="/parent-consent" className="text-gold hover:underline">
+            Complete the consent form
+          </Link>
+          .
+        </p>
       </section>
     </div>
   );

@@ -44,6 +44,51 @@ export type Database = {
         }
         Relationships: []
       }
+      minor_participation_consents: {
+        Row: {
+          accept_terms: boolean
+          child_age: number
+          child_date_of_birth: string
+          child_full_name: string
+          confirm_guardian_consent: boolean
+          created_at: string
+          guardian_email: string
+          guardian_full_name: string
+          guardian_mobile: string
+          guardian_relationship: string
+          id: string
+          status: string
+        }
+        Insert: {
+          accept_terms?: boolean
+          child_age: number
+          child_date_of_birth: string
+          child_full_name: string
+          confirm_guardian_consent?: boolean
+          created_at?: string
+          guardian_email: string
+          guardian_full_name: string
+          guardian_mobile: string
+          guardian_relationship: string
+          id?: string
+          status?: string
+        }
+        Update: {
+          accept_terms?: boolean
+          child_age?: number
+          child_date_of_birth?: string
+          child_full_name?: string
+          confirm_guardian_consent?: boolean
+          created_at?: string
+          guardian_email?: string
+          guardian_full_name?: string
+          guardian_mobile?: string
+          guardian_relationship?: string
+          id?: string
+          status?: string
+        }
+        Relationships: []
+      }
       career_applications: {
         Row: {
           created_at: string

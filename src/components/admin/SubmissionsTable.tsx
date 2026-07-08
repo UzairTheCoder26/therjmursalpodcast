@@ -10,7 +10,7 @@ interface Column {
 }
 
 interface Props {
-  table: "service_bookings" | "podcast_features" | "sponsorships" | "career_applications" | "guest_letters";
+  table: "service_bookings" | "podcast_features" | "sponsorships" | "career_applications" | "guest_letters" | "minor_participation_consents";
   title: string;
   description: string;
   columns: Column[];
