@@ -14,6 +14,7 @@ import { Route as TeamRouteImport } from './routes/team'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PodcastRouteImport } from './routes/podcast'
 import { Route as ParentConsentRouteImport } from './routes/parent-consent'
+import { Route as MeetupTourRouteImport } from './routes/meetup-tour'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
@@ -23,8 +24,9 @@ import { Route as AdminTermsRouteImport } from './routes/admin.terms'
 import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSponsorshipsRouteImport } from './routes/admin.sponsorships'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminMeetupSettingsRouteImport } from './routes/admin.meetup-settings'
+import { Route as AdminMeetupRouteImport } from './routes/admin.meetup'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
-import { Route as AdminLettersRouteImport } from './routes/admin.letters'
 import { Route as AdminJobsRouteImport } from './routes/admin.jobs'
 import { Route as AdminFeaturesRouteImport } from './routes/admin.features'
 import { Route as AdminConsentRouteImport } from './routes/admin.consent'
@@ -55,6 +57,11 @@ const PodcastRoute = PodcastRouteImport.update({
 const ParentConsentRoute = ParentConsentRouteImport.update({
   id: '/parent-consent',
   path: '/parent-consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeetupTourRoute = MeetupTourRouteImport.update({
+  id: '/meetup-tour',
+  path: '/meetup-tour',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -102,14 +109,19 @@ const AdminSettingsRoute = AdminSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminMeetupSettingsRoute = AdminMeetupSettingsRouteImport.update({
+  id: '/meetup-settings',
+  path: '/meetup-settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMeetupRoute = AdminMeetupRouteImport.update({
+  id: '/meetup',
+  path: '/meetup',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminLettersRoute = AdminLettersRouteImport.update({
-  id: '/letters',
-  path: '/letters',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminJobsRoute = AdminJobsRouteImport.update({
@@ -148,6 +160,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/careers': typeof CareersRoute
+  '/meetup-tour': typeof MeetupTourRoute
   '/parent-consent': typeof ParentConsentRoute
   '/podcast': typeof PodcastRoute
   '/services': typeof ServicesRoute
@@ -159,8 +172,9 @@ export interface FileRoutesByFullPath {
   '/admin/consent': typeof AdminConsentRoute
   '/admin/features': typeof AdminFeaturesRoute
   '/admin/jobs': typeof AdminJobsRoute
-  '/admin/letters': typeof AdminLettersRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/meetup': typeof AdminMeetupRoute
+  '/admin/meetup-settings': typeof AdminMeetupSettingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsorships': typeof AdminSponsorshipsRoute
   '/admin/team': typeof AdminTeamRoute
@@ -171,6 +185,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
+  '/meetup-tour': typeof MeetupTourRoute
   '/parent-consent': typeof ParentConsentRoute
   '/podcast': typeof PodcastRoute
   '/services': typeof ServicesRoute
@@ -182,8 +197,9 @@ export interface FileRoutesByTo {
   '/admin/consent': typeof AdminConsentRoute
   '/admin/features': typeof AdminFeaturesRoute
   '/admin/jobs': typeof AdminJobsRoute
-  '/admin/letters': typeof AdminLettersRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/meetup': typeof AdminMeetupRoute
+  '/admin/meetup-settings': typeof AdminMeetupSettingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsorships': typeof AdminSponsorshipsRoute
   '/admin/team': typeof AdminTeamRoute
@@ -196,6 +212,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/careers': typeof CareersRoute
+  '/meetup-tour': typeof MeetupTourRoute
   '/parent-consent': typeof ParentConsentRoute
   '/podcast': typeof PodcastRoute
   '/services': typeof ServicesRoute
@@ -207,8 +224,9 @@ export interface FileRoutesById {
   '/admin/consent': typeof AdminConsentRoute
   '/admin/features': typeof AdminFeaturesRoute
   '/admin/jobs': typeof AdminJobsRoute
-  '/admin/letters': typeof AdminLettersRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/meetup': typeof AdminMeetupRoute
+  '/admin/meetup-settings': typeof AdminMeetupSettingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsorships': typeof AdminSponsorshipsRoute
   '/admin/team': typeof AdminTeamRoute
@@ -222,6 +240,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/careers'
+    | '/meetup-tour'
     | '/parent-consent'
     | '/podcast'
     | '/services'
@@ -233,8 +252,9 @@ export interface FileRouteTypes {
     | '/admin/consent'
     | '/admin/features'
     | '/admin/jobs'
-    | '/admin/letters'
     | '/admin/login'
+    | '/admin/meetup'
+    | '/admin/meetup-settings'
     | '/admin/settings'
     | '/admin/sponsorships'
     | '/admin/team'
@@ -245,6 +265,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
+    | '/meetup-tour'
     | '/parent-consent'
     | '/podcast'
     | '/services'
@@ -256,8 +277,9 @@ export interface FileRouteTypes {
     | '/admin/consent'
     | '/admin/features'
     | '/admin/jobs'
-    | '/admin/letters'
     | '/admin/login'
+    | '/admin/meetup'
+    | '/admin/meetup-settings'
     | '/admin/settings'
     | '/admin/sponsorships'
     | '/admin/team'
@@ -269,6 +291,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/careers'
+    | '/meetup-tour'
     | '/parent-consent'
     | '/podcast'
     | '/services'
@@ -280,8 +303,9 @@ export interface FileRouteTypes {
     | '/admin/consent'
     | '/admin/features'
     | '/admin/jobs'
-    | '/admin/letters'
     | '/admin/login'
+    | '/admin/meetup'
+    | '/admin/meetup-settings'
     | '/admin/settings'
     | '/admin/sponsorships'
     | '/admin/team'
@@ -294,6 +318,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
   CareersRoute: typeof CareersRoute
+  MeetupTourRoute: typeof MeetupTourRoute
   ParentConsentRoute: typeof ParentConsentRoute
   PodcastRoute: typeof PodcastRoute
   ServicesRoute: typeof ServicesRoute
@@ -336,6 +361,13 @@ declare module '@tanstack/react-router' {
       path: '/parent-consent'
       fullPath: '/parent-consent'
       preLoaderRoute: typeof ParentConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meetup-tour': {
+      id: '/meetup-tour'
+      path: '/meetup-tour'
+      fullPath: '/meetup-tour'
+      preLoaderRoute: typeof MeetupTourRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -401,18 +433,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSettingsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/meetup-settings': {
+      id: '/admin/meetup-settings'
+      path: '/meetup-settings'
+      fullPath: '/admin/meetup-settings'
+      preLoaderRoute: typeof AdminMeetupSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/meetup': {
+      id: '/admin/meetup'
+      path: '/meetup'
+      fullPath: '/admin/meetup'
+      preLoaderRoute: typeof AdminMeetupRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/login'
       fullPath: '/admin/login'
       preLoaderRoute: typeof AdminLoginRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/letters': {
-      id: '/admin/letters'
-      path: '/letters'
-      fullPath: '/admin/letters'
-      preLoaderRoute: typeof AdminLettersRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/jobs': {
@@ -467,8 +506,9 @@ interface AdminRouteChildren {
   AdminConsentRoute: typeof AdminConsentRoute
   AdminFeaturesRoute: typeof AdminFeaturesRoute
   AdminJobsRoute: typeof AdminJobsRoute
-  AdminLettersRoute: typeof AdminLettersRoute
   AdminLoginRoute: typeof AdminLoginRoute
+  AdminMeetupRoute: typeof AdminMeetupRoute
+  AdminMeetupSettingsRoute: typeof AdminMeetupSettingsRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminSponsorshipsRoute: typeof AdminSponsorshipsRoute
   AdminTeamRoute: typeof AdminTeamRoute
@@ -483,8 +523,9 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminConsentRoute: AdminConsentRoute,
   AdminFeaturesRoute: AdminFeaturesRoute,
   AdminJobsRoute: AdminJobsRoute,
-  AdminLettersRoute: AdminLettersRoute,
   AdminLoginRoute: AdminLoginRoute,
+  AdminMeetupRoute: AdminMeetupRoute,
+  AdminMeetupSettingsRoute: AdminMeetupSettingsRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminSponsorshipsRoute: AdminSponsorshipsRoute,
   AdminTeamRoute: AdminTeamRoute,
@@ -499,6 +540,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
   CareersRoute: CareersRoute,
+  MeetupTourRoute: MeetupTourRoute,
   ParentConsentRoute: ParentConsentRoute,
   PodcastRoute: PodcastRoute,
   ServicesRoute: ServicesRoute,

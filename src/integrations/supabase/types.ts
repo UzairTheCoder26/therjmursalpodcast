@@ -14,33 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
-      guest_letters: {
+      meetup_tour_registrations: {
         Row: {
           created_at: string
-          email: string
-          full_name: string
           id: string
-          message: string
-          phone: string | null
-          status: string
+          location: string
+          name: string
+          whatsapp: string
         }
         Insert: {
           created_at?: string
-          email: string
-          full_name: string
           id?: string
-          message: string
-          phone?: string | null
-          status?: string
+          location: string
+          name: string
+          whatsapp: string
         }
         Update: {
           created_at?: string
-          email?: string
-          full_name?: string
           id?: string
-          message?: string
-          phone?: string | null
-          status?: string
+          location?: string
+          name?: string
+          whatsapp?: string
         }
         Relationships: []
       }

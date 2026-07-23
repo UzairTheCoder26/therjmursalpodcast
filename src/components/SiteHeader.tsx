@@ -9,6 +9,7 @@ const links = [
   { to: "/podcast", label: "Podcast" },
   { to: "/careers", label: "Careers" },
   { to: "/terms", label: "Terms" },
+  { to: "/meetup-tour", label: "Meet-Up Tour" },
   { to: "/parent-consent", label: "Minor Consent" },
 ] as const;
 
