@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   Loader2, Mic, LayoutDashboard, Inbox, Mic2, Megaphone,
   Briefcase, FileText, UserCog, Settings, LogOut, User,
-  Users, Mail, ShieldCheck,
+  Users, ShieldCheck, MapPin, SlidersHorizontal,
 } from "lucide-react";
 
 const INACTIVITY_MS = 30 * 60 * 1000; // 30 min
@@ -23,7 +23,8 @@ const navItems = [
   { to: "/admin/applications", label: "Career Applications", Icon: Briefcase },
   { to: "/admin/jobs", label: "Job Listings", Icon: UserCog },
   { to: "/admin/team", label: "Team", Icon: Users },
-  { to: "/admin/letters", label: "Guest Letters", Icon: Mail },
+  { to: "/admin/meetup", label: "Meet-Up Registrations", Icon: MapPin },
+  { to: "/admin/meetup-settings", label: "Meet-Up Settings", Icon: SlidersHorizontal },
   { to: "/admin/consent", label: "Minor Consent", Icon: ShieldCheck },
   { to: "/admin/about", label: "Edit About", Icon: User },
   { to: "/admin/terms", label: "Edit Terms", Icon: FileText },
